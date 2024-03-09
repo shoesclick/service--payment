@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service--payment-deployment
+  namespace: shoes-eks
+spec:
+  selector:
+    matchLabels:
+      app: service--payment
+  template: 
+    metadata:
+        name: service--payment
+        labels:
+          app: service--payment
+    spec:
+        containers:
+          - name: service--payment-container
+            image: $awsaccountid.dkr.ecr.$awseksregion.amazonaws.com/$awsecrrepository:service--payment-$githash
+            env:
+              - name: SPRING_PROFILES_ACTIVE
+                value: "dev"
+              - name: CONFIG_SERVER
+                value: "http://svc-swapiconfigserver.corporativo.svc.cluster.local/config/"
+            ports:
+              - containerPort: 5000
+              - containerPort: 9090
+            livenessProbe:
+              httpGet:
+                path: /actuator/health
+                port: 9090
+              initialDelaySeconds: 120
+              periodSeconds: 60
+              timeoutSeconds: 10
+              successThreshold: 1
+              failureThreshold: 2
+            readinessProbe:
+              httpGet:
+                path: /actuator/health
+                port: 9090
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              timeoutSeconds: 10
