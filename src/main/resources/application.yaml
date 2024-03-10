@@ -27,14 +27,6 @@ spring:
       multiplier: 1.5
       compatibility-verifier:
         enabled=false:
-
-info:
-  app:
-    name: "@project.name@"
-    version: "@project.version@"
-    description: "@project.description@ "
-    base-package: "com.shoesclick.service.payment"
-
   jpa:
     properties:
       hibernate:
@@ -57,6 +49,13 @@ info:
     port: 5672
     host: localhost
 
+info:
+  app:
+    name: "@project.name@"
+    version: "@project.version@"
+    description: "@project.description@ "
+    base-package: "com.shoesclick.service.payment"
+
 rabbitmq:
   exchange: shoesclick_exchange
   notification:
@@ -75,16 +74,6 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
         loggerLevel: basic
-
-backend:
-  services:
-    customerUrl: http://localhost:8081/
-    productUrl: http://localhost:8082/
-    orderUrl: http://localhost:8083/
-  gateway:
-    bankSlipUrl: https://a0bb02cd-0bbc-46d6-915b-36835334ba89.mock.pstmn.io
-    pixUrl: https://a0bb02cd-0bbc-46d6-915b-36835334ba89.mock.pstmn.io
-    cardUrl: https://a0bb02cd-0bbc-46d6-915b-36835334ba89.mock.pstmn.io
 
 eureka:
   client:
