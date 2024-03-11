@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /service/payment
+    context-path: /service--payment
   port: 5000
 spring:
   application:
