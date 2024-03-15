@@ -28,7 +28,7 @@ public class PaymentConsumer {
     }
 
 
-    @KafkaListener(topics = "notification-topic", groupId = "group-1")
+    @KafkaListener(topics = "kfk-order-payment", groupId = "grp-order-payment")
     @RetryableTopic(
             backoff = @Backoff(value = 3000L),
             attempts = "5",
