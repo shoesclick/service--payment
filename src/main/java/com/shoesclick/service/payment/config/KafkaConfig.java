@@ -1,6 +1,5 @@
 package com.shoesclick.service.payment.config;
 
-import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import com.shoesclick.notification.avro.NotificationAvro;
 import com.shoesclick.service.payment.config.properties.KafkaProperties;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
@@ -8,6 +7,7 @@ import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
