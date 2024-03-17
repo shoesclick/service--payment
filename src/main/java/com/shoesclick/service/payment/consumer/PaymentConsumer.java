@@ -3,12 +3,12 @@ package com.shoesclick.service.payment.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.shoesclick.payment.avro.PaymentAvro;
 import com.shoesclick.service.payment.config.properties.KafkaProperties;
-import com.shoesclick.service.payment.exception.BusinessException;
 import com.shoesclick.service.payment.mapper.PaymentMapper;
 import com.shoesclick.service.payment.service.PaymentService;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.RetryableTopic;
-import org.springframework.retry.annotation.Backoff;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,13 +29,8 @@ public class PaymentConsumer {
 
 
     @KafkaListener(topics = "kfk-order-payment", groupId = "grp-order-payment")
-    @RetryableTopic(
-            backoff = @Backoff(value = 3000L),
-            attempts = "5",
-            autoCreateTopics = "true",
-            include = BusinessException.class
-    )
-    public void process(PaymentAvro message) throws JsonProcessingException {
+    public void process(@Payload PaymentAvro message, @Header(name = KafkaHeaders.RECEIVED_KEY) String key) throws JsonProcessingException {
+        System.out.println("CHAVE: "+ key);
         paymentService.process(paymentMapper.map(message));
     }
 }

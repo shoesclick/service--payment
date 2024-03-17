@@ -3,6 +3,7 @@ package com.shoesclick.service.payment.config;
 import com.shoesclick.notification.avro.NotificationAvro;
 import com.shoesclick.service.payment.config.properties.KafkaProperties;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
+import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -33,6 +34,7 @@ public class KafkaConfig {
         props.put( ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaPaymentProperties.bootstrapServers());
         props.put( ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+        props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, "true");
         props.put("schema.registry.url", kafkaPaymentProperties.schemaRegistry());
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         return new DefaultKafkaConsumerFactory<>(props);
