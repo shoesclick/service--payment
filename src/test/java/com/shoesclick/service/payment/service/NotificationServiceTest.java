@@ -1,15 +1,17 @@
 package com.shoesclick.service.payment.service;
 
-import com.shoesclick.service.payment.config.properties.MQNotificationProperties;
-import com.shoesclick.service.payment.config.properties.MqProperties;
+import com.shoesclick.notification.avro.NotificationAvro;
+import com.shoesclick.service.payment.config.properties.KafkaProperties;
+import com.shoesclick.service.payment.config.properties.KafkaServiceProperties;
 import com.shoesclick.service.payment.entity.Notification;
 import com.shoesclick.service.payment.enums.TypeTemplate;
+import com.shoesclick.service.payment.mapper.NotificationMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -19,24 +21,28 @@ import static org.mockito.Mockito.*;
 class NotificationServiceTest {
 
     @Mock
-    private MqProperties mqProperties;
+    private KafkaTemplate<String, NotificationAvro> kafkaTemplate;
 
     @Mock
-    private AmqpTemplate rabbitTemplate;
+    private KafkaProperties kafkaProperties;
+
+    @Mock
+    private NotificationMapper notificationMapper;
 
     @InjectMocks
     private NotificationService notificationService;
-
     @BeforeEach
     public void setUp() {
-        var mqNotificationProperties = new MQNotificationProperties("ROUTING","FILA");
-        when(mqProperties.exchange()).thenReturn("EXCHANGE");
-        when(mqProperties.notification()).thenReturn(mqNotificationProperties);
+        var kafkaNotficationProperties = new KafkaServiceProperties("GROUPID","TOPIC");
+        when(kafkaProperties.bootstrapServers()).thenReturn("SERVER");
+        when(kafkaProperties.schemaRegistry()).thenReturn("REGISTRY");
+        when(kafkaProperties.notification()).thenReturn(kafkaNotficationProperties);
     }
 
     @Test
     void shouldSendNotificationSuccess() throws IllegalAccessException {
-        notificationService.sendNotification(new Notification().setIdOrder(1L).setIdCustomer(1L).setTypeTemplate(TypeTemplate.PAYMENT_APPROVED));
-        verify(rabbitTemplate, times(1)).convertAndSend(anyString(), anyString(), anyString());
+        when(notificationMapper.map(any(Notification.class))).thenReturn(new NotificationAvro());
+        notificationService.sendNotification(new Notification().setIdOrder(1L).setIdCustomer(1L).setTypeTemplate(TypeTemplate.CREATE_ORDER));
+        verify(kafkaTemplate, times(1)).send(anyString(), anyString(), any(NotificationAvro.class));
     }
 }

@@ -1,10 +1,9 @@
 package com.shoesclick.service.payment.mapper;
 
 
-import com.shoesclick.service.payment.entity.BankSlipPayment;
-import com.shoesclick.service.payment.entity.CardPayment;
-import com.shoesclick.service.payment.entity.Order;
-import com.shoesclick.service.payment.entity.PixPayment;
+import com.shoesclick.payment.avro.PaymentAvro;
+import com.shoesclick.service.payment.domain.PaymentDomain;
+import com.shoesclick.service.payment.entity.*;
 import com.shoesclick.service.payment.entity.gateway.StatusBankSlip;
 import com.shoesclick.service.payment.entity.gateway.StatusCardTransaction;
 import com.shoesclick.service.payment.entity.gateway.StatusPixKey;
@@ -36,4 +35,6 @@ public interface PaymentMapper {
     @Mapping(target = "idCustomer", source = "order.idCustomer")
     @Mapping(target = "value", source = "valuePayment")
     BankSlipPayment map(StatusBankSlip response, Order order, BigDecimal valuePayment);
+
+    PaymentDomain map(PaymentAvro paymentAvro);
 }

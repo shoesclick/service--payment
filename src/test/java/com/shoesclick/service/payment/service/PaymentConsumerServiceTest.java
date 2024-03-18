@@ -1,6 +1,5 @@
 package com.shoesclick.service.payment.service;
 
-import com.shoesclick.service.payment.aspect.InjectLogger;
 import com.shoesclick.service.payment.entity.BankSlipPayment;
 import com.shoesclick.service.payment.entity.CardPayment;
 import com.shoesclick.service.payment.entity.Order;
@@ -20,7 +19,6 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import static com.shoesclick.service.payment.mock.OrderMock.*;
 import static com.shoesclick.service.payment.mock.PaymentMock.*;
@@ -29,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-class ProcessPaymentServiceTest {
+class PaymentConsumerServiceTest {
 
     @Mock
     private CardPaymentRepository cardPaymentRepository;
