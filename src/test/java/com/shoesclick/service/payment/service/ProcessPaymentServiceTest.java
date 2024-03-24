@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-class PaymentConsumerServiceTest {
+class ProcessPaymentServiceTest {
 
     @Mock
     private CardPaymentRepository cardPaymentRepository;

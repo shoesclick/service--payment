@@ -36,9 +36,6 @@ public class PaymentService {
         notificationService.sendNotification(getNotification(paymentDomain.getOrder()));
     }
 
-
-
-
     private Notification getNotification(Order order) {
         return new Notification()
                 .setIdOrder(order.getId())

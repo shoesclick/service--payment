@@ -6,6 +6,7 @@ import com.shoesclick.service.payment.config.properties.KafkaServiceProperties;
 import com.shoesclick.service.payment.entity.Notification;
 import com.shoesclick.service.payment.enums.TypeTemplate;
 import com.shoesclick.service.payment.mapper.NotificationMapper;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +15,6 @@ import org.mockito.Mock;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -43,6 +43,6 @@ class NotificationServiceTest {
     void shouldSendNotificationSuccess() throws IllegalAccessException {
         when(notificationMapper.map(any(Notification.class))).thenReturn(new NotificationAvro());
         notificationService.sendNotification(new Notification().setIdOrder(1L).setIdCustomer(1L).setTypeTemplate(TypeTemplate.CREATE_ORDER));
-        verify(kafkaTemplate, times(1)).send(anyString(), anyString(), any(NotificationAvro.class));
+        verify(kafkaTemplate, times(1)).send(any(ProducerRecord.class));
     }
 }

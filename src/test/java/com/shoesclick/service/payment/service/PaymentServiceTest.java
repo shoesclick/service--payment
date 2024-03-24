@@ -2,10 +2,7 @@ package com.shoesclick.service.payment.service;
 
 import com.shoesclick.service.payment.domain.PaymentDomain;
 import com.shoesclick.service.payment.entity.*;
-import com.shoesclick.service.payment.repository.CardPaymentRepository;
 import com.shoesclick.service.payment.repository.OrderRepository;
-import com.shoesclick.service.payment.repository.PixPaymentRepository;
-import com.shoesclick.service.payment.repository.BankSlipPaymentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,8 +11,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.shoesclick.service.payment.mock.OrderMock.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
