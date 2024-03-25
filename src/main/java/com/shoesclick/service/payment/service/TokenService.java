@@ -16,7 +16,7 @@ public class TokenService {
 
     private final TokenMapper tokenMapper;
 
-    private static final String CACHE_TOKEN = "cache_token";
+    private static final String CACHE_TOKEN = "cache_token_payment";
 
     public TokenService(TokenRepository tokenRepository, TokenProperties tokenProperties, TokenMapper tokenMapper) {
         this.tokenRepository = tokenRepository;

@@ -8,21 +8,21 @@ import java.io.Serializable;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SsoToken implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 6290268352746685066L;
-    private String accesToken;
+
+    private String accessToken;
 
     private String expiresIn;
 
     private String tokenType;
 
-    public String getAccesToken() {
-        return accesToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public SsoToken setAccesToken(String accesToken) {
-        this.accesToken = accesToken;
+    public SsoToken setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
         return this;
     }
 
