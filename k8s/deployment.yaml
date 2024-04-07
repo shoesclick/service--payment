@@ -27,6 +27,8 @@ spec:
                 value: "mysql.ns-infra.svc.cluster.local"
               - name: CACHE_HOST
                 value: "redis.ns-infra.svc.cluster.local"
+              - name: DISCOVERY_HOST
+                value: "http://svc-server--discovery-stack.shoes-eks.svc.cluster.local:8762"
             ports:
               - containerPort: 5000
               - containerPort: 9090
