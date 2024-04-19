@@ -23,7 +23,7 @@ public class PaymentMetrics {
     }
 
     public void incrementPaymentSuccessCount() {
-        paymentErrors.increment();
+        paymentProcess.increment();
     }
 
     public void incrementPaymentErrorCount() {
