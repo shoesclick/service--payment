@@ -13,7 +13,7 @@ spring:
   main:
     banner-mode: 'OFF'
   config:
-    import: "configserver:http://svc-server--config-service.shoes-eks.svc.cluster.local:8888/config"
+    import: "configserver:${CONFIG_SERVER_URL:http://svc-server--config-service.shoes-eks.svc.cluster.local:8888/config/}"
   cloud:
     allow-override: true
     config:
@@ -62,9 +62,3 @@ management:
         group:
           readiness:
             include: diskSpace
-
-opentracing:
-  service-name: service--payment
-  jaeger:
-    http-sender:
-      url: ${JAEGER_HOST:http://jaeger-collector.monitoracao.svc.cluster.local:14268/api/traces
